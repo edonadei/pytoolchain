@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { Menu } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
+import { getRepositoriesFromUser } from "./services/GithubAPI";
 import {
   Typography,
   AppBar,
@@ -33,21 +34,18 @@ const useStyles = makeStyles({
   }
 });
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9)
-];
-
 function App() {
   const classes = useStyles();
   const [connected, setConnected] = useState(false);
+  const [repositories, setRepositories] = useState([]);
+
+  useEffect(() => {
+    getRepositoriesFromUser("edonadei").then(data => {
+      console.log(data);
+      setRepositories(data);
+    });
+  }, []);
+
   return (
     <React.Fragment>
       <AppBar position="static">
@@ -58,46 +56,44 @@ function App() {
           <Typography variant="h6">Pytoolchain</Typography>
         </Toolbar>
       </AppBar>
-      <Typography>{`user connected: ${connected}`}</Typography>
-      {connected ? (
-        <Grid container direction="row" justify="center" alignItems="center">
-          <Button className={classes.root} onClick={() => setConnected(false)}>
-            Disconnect from Github
-          </Button>
-          <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Dessert (100g serving)</TableCell>
-                  <TableCell align="right">Calories</TableCell>
-                  <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                  <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                  <TableCell align="right">Protein&nbsp;(g)</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map(row => (
-                  <TableRow key={row.name}>
-                    <TableCell component="th" scope="row">
-                      {row.name}
-                    </TableCell>
-                    <TableCell align="right">{row.calories}</TableCell>
-                    <TableCell align="right">{row.fat}</TableCell>
-                    <TableCell align="right">{row.carbs}</TableCell>
-                    <TableCell align="right">{row.protein}</TableCell>
+      {connected
+        ? <Grid container direction="row" justify="center" alignItems="center">
+            <Button
+              className={classes.root}
+              onClick={() => setConnected(false)}
+            >
+              Disconnect from Github
+            </Button>
+            <TableContainer component={Paper}>
+              <Table className={classes.table} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Repository name</TableCell>
+                    <TableCell align="right">URL</TableCell>
+                    <TableCell align="right">Action</TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Grid>
-      ) : (
-        <Grid container direction="row" justify="center" alignItems="center">
-          <Button className={classes.root} onClick={() => setConnected(true)}>
-            Connect with Github
-          </Button>
-        </Grid>
-      )}
+                </TableHead>
+                <TableBody>
+                  {repositories.map(repo =>
+                    <TableRow key={repo.name}>
+                      <TableCell component="th" scope="row">
+                        {repo.name}
+                      </TableCell>
+                      <TableCell align="right">
+                        {repo.url}
+                      </TableCell>
+                      <TableCell align="right">press here</TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Grid>
+        : <Grid container direction="row" justify="center" alignItems="center">
+            <Button className={classes.root} onClick={() => setConnected(true)}>
+              Connect with Github
+            </Button>
+          </Grid>}
     </React.Fragment>
   );
 }
