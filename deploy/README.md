@@ -2,6 +2,8 @@
 
 ## Init
 ### AWS CLI
+> https://docs.aws.amazon.com/cli/latest/userguide/
+
 See online documentation to configure AWS CLI
 
 ### Terraform
