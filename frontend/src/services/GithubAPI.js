@@ -24,5 +24,9 @@ export const getRepositoriesFromUser = async userId => {
                 `
     }
   }).then(({ data }) => data); // We keep it for debug
-  return results.data.repositoryOwner.repositories.nodes;
+  if (results.data.repositoryOwner.repositories != null) {
+    return results.data.repositoryOwner.repositories.nodes;
+  } else {
+    return [];
+  }
 };
