@@ -18,8 +18,4 @@ foreach ($d in $dir) {
 }
 Write-Output "Lambda functions Zipped!"
 
-
 terraform apply
-
-
-
