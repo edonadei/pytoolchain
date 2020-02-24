@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 import {
   Table,
   TableBody,
@@ -35,6 +36,7 @@ export const RepoList = ({ repositories }) => {
           <TableRow>
             <TableCell>Repository name</TableCell>
             <TableCell>URL</TableCell>
+            <TableCell>Main Language</TableCell>
             <TableCell>Action</TableCell>
           </TableRow>
         </TableHead>
@@ -46,7 +48,20 @@ export const RepoList = ({ repositories }) => {
               </TableCell>
               <TableCell>{repo.url}</TableCell>
               <TableCell>
-                <Button className={classes.root}>Toolchain</Button>
+                {repo?.primaryLanguage?.name
+                  ? repo?.primaryLanguage?.name
+                  : "None detected"}
+              </TableCell>
+              <TableCell>
+                {repo?.primaryLanguage?.name === "Python" ? (
+                  <Link to="/pytoolchain" style={{ textDecoration: 'none' }}>
+                    <Button className={classes.root}>Toolchain</Button>
+                  </Link>
+                ) : (
+                  <Button disabled className={classes.root}>
+                    Not available yet
+                  </Button>
+                )}
               </TableCell>
             </TableRow>
           ))}
