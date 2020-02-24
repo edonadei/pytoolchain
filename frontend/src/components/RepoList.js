@@ -25,10 +25,13 @@ const useStyles = makeStyles({
     height: 48,
     padding: "0 30px",
     boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)"
+  },
+  bold: {
+    fontWeight: "bold"
   }
 });
 
-export const RepoList = ({ repositories }) => {
+export const RepoList = ({ repositories, setRepository }) => {
   const classes = useStyles();
   const numberOfRepositories = repositories.length;
 
@@ -38,11 +41,11 @@ export const RepoList = ({ repositories }) => {
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
-              <TableRow>
-                <TableCell>Repository name</TableCell>
-                <TableCell>URL</TableCell>
-                <TableCell>Main Language</TableCell>
-                <TableCell>Action</TableCell>
+              <TableRow > 
+                <TableCell><Typography variant="h6">Repository name</Typography></TableCell>
+                <TableCell><Typography variant="h6">URL</Typography></TableCell>
+                <TableCell><Typography variant="h6">Language</Typography></TableCell>
+                <TableCell><Typography variant="h6">Action</Typography></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -60,10 +63,10 @@ export const RepoList = ({ repositories }) => {
                   <TableCell>
                     {repo?.primaryLanguage?.name === "Python" ? (
                       <Link
-                        to="/pytoolchain"
+                        to="/toolchain"
                         style={{ textDecoration: "none" }}
                       >
-                        <Button className={classes.root}>Toolchain</Button>
+                        <Button onPress={setRepository(repo)} className={classes.root}>Toolchain</Button>
                       </Link>
                     ) : (
                       <Button disabled className={classes.root}>
