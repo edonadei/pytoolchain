@@ -17,6 +17,9 @@ export const getRepositoriesFromUser = async userId => {
                     nodes{
                         name
                         url
+                        primaryLanguage {
+                          name
+                        }
                     }
                     }
                 }

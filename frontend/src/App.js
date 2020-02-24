@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import { makeStyles } from "@material-ui/core/styles";
 import { getRepositoriesFromUser } from "./services/GithubAPI";
-import { Button, Grid, TextField } from "@material-ui/core";
+import { Button, Grid, TextField, Typography } from "@material-ui/core";
 import { ToolbarApp } from "./components/ToolbarApp";
 import { RepoList } from "./components/RepoList";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -32,9 +32,9 @@ function App() {
   return (
     <React.Fragment>
       <Router>
+        <ToolbarApp />
         <Switch>
-          <Route path="/">
-            <ToolbarApp />
+          <Route exact path="/">
             {connected ? (
               <Grid
                 container
@@ -77,6 +77,9 @@ function App() {
                 </Button>
               </Grid>
             )}
+          </Route>
+          <Route path="/pytoolchain">
+            <Typography>Hello from /pytoolchain</Typography>
           </Route>
         </Switch>
       </Router>
