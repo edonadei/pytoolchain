@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 export const ToolbarApp = () => {
   const classes = useStyles();
   return (
-    <AppBar position="static" className={classes.root}>
+    <AppBar position="sticky" className={classes.root}>
       <Toolbar>
         <IconButton edge="start" color="inherit" aria-label="menu">
           <Link to="/">
