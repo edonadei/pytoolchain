@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { makeStyles } from "@material-ui/core/styles";
 import { getRepositoriesFromUser } from "./services/GithubAPI";
@@ -6,6 +6,7 @@ import { Button, Grid, TextField, Typography } from "@material-ui/core";
 import { ToolbarApp } from "./components/ToolbarApp";
 import { RepoList } from "./components/RepoList";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const useStyles = makeStyles({
   table: {
@@ -19,6 +20,9 @@ const useStyles = makeStyles({
     height: 48,
     padding: "0 30px",
     boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)"
+  },
+  container: {
+    paddingTop: 40
   }
 });
 
@@ -29,54 +33,42 @@ function App() {
   const [repositories, setRepositories] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    setLoading(true);
+    getRepositoriesFromUser(nameOfUser).then(data => {
+      setLoading(false);
+      setRepositories(data);
+    });
+  }, [nameOfUser]);
+
   return (
     <React.Fragment>
       <Router>
         <ToolbarApp />
         <Switch>
           <Route exact path="/">
-            {connected ? (
+            <div className={classes.container}>
               <Grid
                 container
-                direction="row"
-                justify="center"
-                alignItems="center"
-              >
-                <Button
-                  style={{ marginTop: "20px" }}
-                  className={classes.root}
-                  onClick={() => setConnected(false)}
-                >
-                  Disconnect from Github
-                </Button>
-                <RepoList repositories={repositories} />
-              </Grid>
-            ) : (
-              <Grid
-                container
-                direction="row"
+                direction="column"
                 justify="center"
                 alignItems="center"
               >
                 <TextField
                   label="Github ID"
                   value={nameOfUser}
-                  onChange={e => setnameOfUser(e.target.value)}
-                ></TextField>
-                <Button
-                  style={{ marginTop: "20px", marginLeft: "10px" }}
-                  className={classes.root}
-                  onClick={() => {
-                    setConnected(true);
-                    getRepositoriesFromUser(nameOfUser).then(data =>
-                      setRepositories(data)
-                    );
+                  onChange={e => {
+                    setnameOfUser(e.target.value);
                   }}
-                >
-                  Find repos
-                </Button>
+                  style={{paddingBottom: 30}}
+                ></TextField>
+                {loading ? (
+                  <ClipLoader size={150} color={"#123abc"} loading={loading} />
+                ) : (
+                  <RepoList repositories={repositories} />
+                )}
               </Grid>
-            )}
+            </div>
           </Route>
           <Route path="/pytoolchain">
             <Typography>Hello from /pytoolchain</Typography>

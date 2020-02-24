@@ -9,7 +9,8 @@ import {
   TableContainer,
   TableRow,
   Paper,
-  Button
+  Button,
+  Typography
 } from "@material-ui/core";
 
 const useStyles = makeStyles({
@@ -29,44 +30,55 @@ const useStyles = makeStyles({
 
 export const RepoList = ({ repositories }) => {
   const classes = useStyles();
+  const numberOfRepositories = repositories.length;
+
   return (
-    <TableContainer component={Paper} style={{ padding: "10px" }}>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Repository name</TableCell>
-            <TableCell>URL</TableCell>
-            <TableCell>Main Language</TableCell>
-            <TableCell>Action</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {repositories.map(repo => (
-            <TableRow key={repo.name}>
-              <TableCell component="th" scope="row">
-                {repo.name}
-              </TableCell>
-              <TableCell>{repo.url}</TableCell>
-              <TableCell>
-                {repo?.primaryLanguage?.name
-                  ? repo?.primaryLanguage?.name
-                  : "None detected"}
-              </TableCell>
-              <TableCell>
-                {repo?.primaryLanguage?.name === "Python" ? (
-                  <Link to="/pytoolchain" style={{ textDecoration: 'none' }}>
-                    <Button className={classes.root}>Toolchain</Button>
-                  </Link>
-                ) : (
-                  <Button disabled className={classes.root}>
-                    Not available yet
-                  </Button>
-                )}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <React.Fragment>
+      {numberOfRepositories > 0 ? (
+        <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Repository name</TableCell>
+                <TableCell>URL</TableCell>
+                <TableCell>Main Language</TableCell>
+                <TableCell>Action</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {repositories.map(repo => (
+                <TableRow key={repo.name}>
+                  <TableCell component="th" scope="row">
+                    {repo.name}
+                  </TableCell>
+                  <TableCell>{repo.url}</TableCell>
+                  <TableCell>
+                    {repo?.primaryLanguage?.name
+                      ? repo?.primaryLanguage?.name
+                      : "None detected"}
+                  </TableCell>
+                  <TableCell>
+                    {repo?.primaryLanguage?.name === "Python" ? (
+                      <Link
+                        to="/pytoolchain"
+                        style={{ textDecoration: "none" }}
+                      >
+                        <Button className={classes.root}>Toolchain</Button>
+                      </Link>
+                    ) : (
+                      <Button disabled className={classes.root}>
+                        Not available yet
+                      </Button>
+                    )}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      ) : (
+        <Typography variant="h4">This user does not have any repositories</Typography>
+      )}
+    </React.Fragment>
   );
 };
