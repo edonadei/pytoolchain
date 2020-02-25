@@ -18,6 +18,7 @@ const useStyles = makeStyles({
     border: 0,
     color: "white",
     height: 48,
+    width: 120,
     padding: "0 30px",
     boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)"
   },
@@ -30,6 +31,14 @@ const useStyles = makeStyles({
   paper: {
     height: 140,
     width: 100
+  },
+  console: {
+    width: 300,
+    height: 300,
+    background: "#121212"
+  },
+  consoleText: {
+    color: "#FFFFFF"
   },
   control: {
     padding: 2
@@ -115,25 +124,61 @@ function App() {
                     direction="row"
                     justify="center"
                     alignItems="center"
-                    spacing={2}
+                    spacing={5}
                   >
                     <Grid item>
-                      <Paper>
-                        <Button className={classes.button}>Build</Button>
-                        <Typography>Console</Typography>
-                      </Paper>
+                      <Grid
+                        container
+                        direction="column"
+                        justify="center"
+                        alignItems="center"
+                        spacing={5}
+                      >
+                        <Grid item>
+                          <Button className={classes.button}>Build</Button>
+                        </Grid>
+                        <Grid item>
+                          <Paper className={classes.console}>
+                            <Typography style={{color: "#FFFFFF"}} variant="h6">Build console</Typography>
+                          </Paper>
+                        </Grid>
+                      </Grid>
                     </Grid>
                     <Grid item>
-                      <Paper>
-                        <Button className={classes.button}>Test</Button>
-                        <Typography>Console</Typography>
-                      </Paper>
+                      <Grid
+                        container
+                        direction="column"
+                        justify="center"
+                        alignItems="center"
+                        spacing={5}
+                      >
+                        <Grid item>
+                          <Button disabled className={classes.button}>Test</Button>
+                        </Grid>
+                        <Grid item>
+                          <Paper className={classes.console}>
+                            <Typography style={{color: "#FFFFFF"}} variant="h6">Test console</Typography>
+                          </Paper>
+                        </Grid>
+                      </Grid>
                     </Grid>
                     <Grid item>
-                      <Paper>
-                        <Button className={classes.button}>Deploy</Button>
-                        <Typography>Console</Typography>
-                      </Paper>
+                      <Grid
+                        container
+                        direction="column"
+                        justify="center"
+                        alignItems="center"
+                        spacing={5}
+                      >
+                        <Grid item>
+                          <Button disabled className={classes.button}>Deploy</Button>
+                        </Grid>
+                        <Grid item>
+                          <Paper className={classes.console}>
+                            <Typography style={{color: "#FFFFFF"}} variant="h6">Deploy console</Typography>
+                          </Paper>
+                        </Grid>
+                      </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
