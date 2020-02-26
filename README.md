@@ -1,9 +1,13 @@
 # pytoolchain
 a tool to build, validate and deploy python code to cloud providers
 
-![schema](schema.png)
+**V1**
+![schema_v1](schema_v1?png)
 
-## To store secrets
+**V2**
+![schema_v2](schema_v2.png)
+
+## To store secrets in /frontend
 
 For create_react_app vars, create a .env.development file, and add your variable like this:
 ```
