@@ -2,7 +2,7 @@
 a tool to build, validate and deploy python code to cloud providers
 
 **V1**
-![schema_v1](schema_v1?png)
+![schema_v1](schema_v1.png)
 
 **V2**
 ![schema_v2](schema_v2.png)
