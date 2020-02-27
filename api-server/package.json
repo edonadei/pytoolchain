@@ -1,0 +1,36 @@
+{
+  "name": "api-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec babel-node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edonadei/pytoolchain.git"
+  },
+  "keywords": [
+    "toolchain",
+    "build",
+    "devops",
+    "cicd"
+  ],
+  "author": "edonadei",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edonadei/pytoolchain/issues"
+  },
+  "homepage": "https://github.com/edonadei/pytoolchain#readme",
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/node": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "mongoose": "^5.9.2"
+  }
+}
